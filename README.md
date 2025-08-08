@@ -111,6 +111,14 @@ client_socket.close()
 ```
 
 
+## Output
+
+Server
+<img width="899" height="278" alt="Screenshot 2025-08-08 141924" src="https://github.com/user-attachments/assets/7429cc9a-3f7d-4e96-8fc9-6b6d613a7de5" />
+
+Client
+<img width="885" height="253" alt="Screenshot 2025-08-08 141904" src="https://github.com/user-attachments/assets/17f2002c-c219-4302-bb7b-ccb223d0a7cf" />
+
 
 
 ## Result:
