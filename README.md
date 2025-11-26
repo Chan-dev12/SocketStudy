@@ -52,74 +52,40 @@ Socket programming finds applications in various domains, including web developm
 3.	File Transfer Protocol: Protocols like FTP (File Transfer Protocol) utilize socket programming for transferring files between a client and a server.
 4.	Networked Games: Online multiplayer games rely on socket programming to facilitate communication between game clients and servers.
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
-
-## Programs:
-
+## Programs
 Server
 ```
 import socket
+from datetime import datetime
 
-# Create a socket object
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s = socket.socket()  
+s.bind(('localhost', 8000))  
+s.listen(5)  
 
-# Bind the socket to the host and port
-server_socket.bind(('localhost', 8000))
+c, addr = s.accept()  
+print("Client Address :", addr)
 
-# Listen for incoming connections (max 1 connection)
-server_socket.listen(1)
-print("Server is waiting for a connection...")
+now = datetime.now()
+c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())  
+ack = c.recv(1024).decode()  
+if ack:
+    print(ack)
 
-# Accept the connection
-conn, addr = server_socket.accept()
-print(f"Connected by {addr}")
-
-# Send a message to the client
-conn.send("Hello from the server!".encode())
-
-# Receive a message from the client
-data = conn.recv(1024)
-print(f"Received from client: {data.decode()}")
-
-# Close the connection
-conn.close()
-server_socket.close()
+c.close()
 ```
-
-client
-```
-
-import socket
-
-# Create a socket object
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-# Connect to the server
-client_socket.connect(('localhost', 8000))
-
-# Print the client's socket name
-print(f"Client connected from: {client_socket.getsockname()}")
-
-# Receive a message from the server
-server_message = client_socket.recv(1024).decode()
-print(f"Received from server: {server_message}")
-
-# Send a message to the server
-client_socket.send("Acknowledgement received from the client.".encode())
-
-# Close the connection
-client_socket.close()
-```
-
-
-## Output
-
-Server
-<img width="899" height="278" alt="Screenshot 2025-08-08 141924" src="https://github.com/user-attachments/assets/7429cc9a-3f7d-4e96-8fc9-6b6d613a7de5" />
-
 Client
-<img width="885" height="253" alt="Screenshot 2025-08-08 141904" src="https://github.com/user-attachments/assets/17f2002c-c219-4302-bb7b-ccb223d0a7cf" />
-
-
-
+```
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("acknowlegment recived from the server".encode())
+```
+## Output
+Server
+![alt text](<Screenshot 2025-08-08 142848.png>)
+Client
+![alt text](<Screenshot 2025-08-08 142900.png>)
 ## Result:
 Thus the study of Socket Programming Completed Successfully
